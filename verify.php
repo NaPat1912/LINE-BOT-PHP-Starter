@@ -1,5 +1,5 @@
 <?php
-$access_token = 'aisapi';
+$access_token = 'AIS_API';
 
 $url = 'https://api.line.me/v1/oauth/verify';
 
