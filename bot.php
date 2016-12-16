@@ -8,6 +8,10 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 // Validate parsed JSON data
+$to = $events->{"result"}[0]->{"content"}->{"from"}; //หาผู้ส่ง 
+$text = $events->{"result"}[0]->{"content"}->{"text"}; //หาข้อความที่โพสมา 
+$text_ex = explode(':', $text); //เอาข้อความมาแยก : ได้เป็น Array 
+
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
@@ -32,7 +36,12 @@ if (!is_null($events['events'])) {
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-
+			
+		else if($text == 'สวัสดี'){//คำอื่นๆ ที่ต้องการให้ Bot ตอบกลับเมื่อโพสคำนี้มา เช่นโพสว่า บอกมา ให้ตอบว่า ความลับนะ 
+			$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>"ดีจ้า ยินดีให้ความช่วยเหลือ"]; }
+		else{//นอกนั้นให้โพส สวัสดี 
+			$response_format_text = ['contentType'=>1,"toType"=>1,"text"=>"รอสักครู่"]; 
+			
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
