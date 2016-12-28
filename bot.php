@@ -13,6 +13,10 @@ if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
+		$myfile = fopen("logs.txt", "wr") or die("Unable to open file!");
+		$txt = "user id date";
+		fwrite($myfile, $txt);
+		fclose($myfile);
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
