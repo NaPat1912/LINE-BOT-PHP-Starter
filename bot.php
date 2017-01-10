@@ -78,7 +78,7 @@ if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความค�
 } 
 
 // toChannel?eventType 
-//$post_data = ["to"=>[$to],"toChannel"=>"1492138532","eventType"=>"138311608800106203","content"=>$response_format_text]; //ส่งข้อมูลไป 
+$post_data = ["to"=>[$to],"toChannel"=>"1492138532","eventType"=>"138311608800106203","content"=>$response_format_text]; //ส่งข้อมูลไป 
 
 $ch = curl_init("https://trialbot-api.line.me/v1/events"); 
 curl_setopt($ch, CURLOPT_POST, true); 
