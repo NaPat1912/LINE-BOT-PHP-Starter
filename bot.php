@@ -2,6 +2,8 @@
 $access_token = 'P16B/i7iP6NyxMmL2cDfXPeOy0n0V3KrqBXcs1cVSpQ+IZVCs8aajyDbB/JlctMyACPrQ+T30KvpfDdYQNs+SQYxDb1ew5Hg1i8eERvgWBJVM8vPqlPrUpqkVB366JNWUp+lHe4Mqu0qvAynWAR/aQdB04t89/1O/w1cDnyilFU=';
 $proxy = 'http://fixie:FWwieAEjnTaoGI4@velodrome.usefixie.com:80';
 $proxyauth = 'http://fixie:FWwieAEjnTaoGI4@velodrome.usefixie.com:80';
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('P16B/i7iP6NyxMmL2cDfXPeOy0n0V3KrqBXcs1cVSpQ+IZVCs8aajyDbB/JlctMyACPrQ+T30KvpfDdYQNs+SQYxDb1ew5Hg1i8eERvgWBJVM8vPqlPrUpqkVB366JNWUp+lHe4Mqu0qvAynWAR/aQdB04t89/1O/w1cDnyilFU=');
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'e6cd474bb7bb5368e1bc3ea48e92521c']);
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
@@ -11,7 +13,10 @@ if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+		$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+		$response = $bot->replyMessage('Hi, I am line api', $textMessageBuilder);
+		echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+		/*if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
 			$text = $event['message']['text'];
 			// Get replyToken
@@ -26,7 +31,7 @@ if (!is_null($events['events'])) {
 			$data = [
 				'replyToken' => $replyToken,
 				'messages' => [$messages],
-			];
+			];*/
 			
 			
 			$post = json_encode($data);
