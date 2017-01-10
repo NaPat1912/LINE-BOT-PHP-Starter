@@ -26,7 +26,7 @@ if (!is_null($events['events'])) {
 			$data = [
 				'replyToken' => $replyToken,
 				'messages' => [$messages],
-				echo "hello";
+				
 			];
 			
 			
@@ -44,7 +44,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 			$result = curl_exec($ch);
 			curl_close($ch);
-			echo $result . "\r\n";
+			echo "hello";echo $result . "\r\n";
 		}
 	}
 }
