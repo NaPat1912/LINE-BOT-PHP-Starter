@@ -7,6 +7,7 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 // Validate parsed JSON data
+echo "hello"
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
@@ -44,7 +45,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 			$result = curl_exec($ch);
 			curl_close($ch);
-			echo "hello";echo $result . "\r\n";
+			;echo $result . "\r\n";
 		}
 	}
 }
