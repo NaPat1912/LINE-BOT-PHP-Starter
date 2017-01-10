@@ -15,13 +15,10 @@ if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
-		$myfile = fopen("logs.txt", "wr") or die("Unable to open file!");
-		$txt = "user id date";
-		fwrite($myfile, $txt);
-		fclose($myfile);
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+
+		if ($event['type'] == 'hello' && $event['message']['type'] == 'text') {
 			// Get text sent
-			$text = $event['message']['text'];
+			$text = 'Hi';
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
@@ -42,7 +39,7 @@ if (!is_null($events['events'])) {
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 			
-			
+		
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
