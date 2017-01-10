@@ -1,9 +1,10 @@
 <?php
-
+namespace frontend\controllers;
 $access_token = 'P16B/i7iP6NyxMmL2cDfXPeOy0n0V3KrqBXcs1cVSpQ+IZVCs8aajyDbB/JlctMyACPrQ+T30KvpfDdYQNs+SQYxDb1ew5Hg1i8eERvgWBJVM8vPqlPrUpqkVB366JNWUp+lHe4Mqu0qvAynWAR/aQdB04t89/1O/w1cDnyilFU=';
 $proxy = 'http://fixie:FWwieAEjnTaoGI4@velodrome.usefixie.com:80';
 $proxyauth = 'http://fixie:FWwieAEjnTaoGI4@velodrome.usefixie.com:80';
-
+use Yii; 
+use yii\web\Response;
 public function beforeAction($action) 
 { 
 	if ($action->id == 'callback') { 
@@ -77,7 +78,7 @@ if($text_ex[0] == "อยากรู้"){ //ถ้าข้อความค�
 } 
 
 // toChannel?eventType 
-$post_data = ["to"=>[$to],"toChannel"=>"1492138532","eventType"=>"138311608800106203","content"=>$response_format_text]; //ส่งข้อมูลไป 
+//$post_data = ["to"=>[$to],"toChannel"=>"1492138532","eventType"=>"138311608800106203","content"=>$response_format_text]; //ส่งข้อมูลไป 
 
 $ch = curl_init("https://trialbot-api.line.me/v1/events"); 
 curl_setopt($ch, CURLOPT_POST, true); 
