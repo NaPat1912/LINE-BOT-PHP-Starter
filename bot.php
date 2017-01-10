@@ -10,7 +10,7 @@ $urlReply = 'https://api.line.me/v2/bot/message/reply';
  		$dataEncode = json_encode($packet);
  		$headersOption = array(‘Content-Type: application/json’,’Authorization: Bearer ‘.$token);
 	
-			{“events”:[{“type”:”message”,”replyToken”:”ไม่บอก”,”source”:
+			/*{“events”:[{“type”:”message”,”replyToken”:”ไม่บอก”,”source”:
 				   {“userId”:”ไม่บอก”,”type”:”user”},”timestamp”:1477132643802,
 				    ”message”:{“type”:”text”,”id”:”5094630491076",”text”:”ว่าไงท่าน”}}]}
 			$res = json_decode($post, true);
@@ -48,7 +48,7 @@ $urlReply = 'https://api.line.me/v2/bot/message/reply';
 		}
 		
 		$packet = getSticker($item[‘replyToken’]);
- 		postMessage($token,$packet,$urlReply);
+ 		postMessage($token,$packet,$urlReply);*/
 			
 			$ch = curl_init($urlReply);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -60,8 +60,8 @@ $urlReply = 'https://api.line.me/v2/bot/message/reply';
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 			$result = curl_exec($ch);
 			curl_close($ch);
-			echo $result . "\r\n";
+			//echo $result . "\r\n";
 		}
 	}
 }
-echo "OK";
+//echo "OK";
