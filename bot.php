@@ -74,6 +74,17 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
+			{
+  				"to":["u5912407b444e54885d00111f7b0ce375"],
+  				"toChannel":1383378250,
+  				"eventType":"138311608800106203",
+  				"content":{
+    				"contentType":2,
+    				"toType":1,
+    				"originalContentUrl":"http://example.com/original.jpg",
+    				"previewImageUrl":"http://example.com/preview.jpg"
+  					   }
+			}
 			// Get text sent
 			$text = "images";
 			// Get replyToken
