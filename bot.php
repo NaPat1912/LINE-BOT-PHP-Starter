@@ -74,17 +74,6 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			{
-  				"to":["u5912407b444e54885d00111f7b0ce375"],
-  				"toChannel":1383378250,
-  				"eventType":"138311608800106203",
-  				"content":{
-    				"contentType":2,
-    				"toType":1,
-    				"originalContentUrl":"http://example.com/original.jpg",
-    				"previewImageUrl":"http://example.com/preview.jpg"
-  					   }
-			}
 			// Get text sent
 			$text = "images";
 			// Get replyToken
@@ -115,6 +104,38 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			;echo $result . "\r\n";
 		}
+		else if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') {
+			// Get text sent
+			$sticker = ('type' => 'sticker','packageId' => '4','stickerId' => '300');
+			// Get replyToken
+			$replyToken = $event['replyToken'];
+			// Build message to reply back
+			$messages = [
+				'type' => 'sticker',
+				'sticker' => $sticker
+			];
+			// Make a POST Request to Messaging API to reply to sender
+			$url = 'https://api.line.me/v2/bot/message/reply';
+			$data = [
+				'replyToken' => $replyToken,
+				'messages' => [$messages],
+				
+			];
+			$post = json_encode($data);
+			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($ch, CURLOPT_PROXY, $proxy);
+			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+			$result = curl_exec($ch);
+			curl_close($ch);
+			;echo $result . "\r\n";
+		}
+		
 		
 		else
 		{
