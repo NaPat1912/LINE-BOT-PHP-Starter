@@ -104,7 +104,7 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			;echo $result . "\r\n";
 		}
-		else if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') {
+		/*else if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') {
 			// Get text sent
 			$sticker = ('type' => 'sticker','packageId' => '4','stickerId' => '300');
 			// Get replyToken
@@ -135,7 +135,7 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			;echo $result . "\r\n";
 		}
-		
+		*/
 		
 		else
 		{
