@@ -77,17 +77,17 @@ if (!is_null($events['events'])) {
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
 			$urlpic = 'http://example.com/image.php';
 			$file = date("Y/m/d - h:i:sa");
-			//$img = '/my/folder/$file.jpg';
+			$img = '/my/folder/$file.jpg';
 			file_put_contents($img, file_get_contents($url));
 			
 			// Get text sent
-			$images = "$file";
+			$images = "$img";
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $file
+				'text' => $img
 			];
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
