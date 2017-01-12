@@ -19,13 +19,10 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
-			$messages = [{
+			$messages = [
 				'type' => 'text',
-				'text' => $text},
-				     {
-				'type' => 'text',
-				'text' => "Test"}
-			];
+				'text' => $text
+				   ];
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
@@ -110,21 +107,18 @@ if (!is_null($events['events'])) {
 		}
 		else if($event['message']['type'] == 'sticker') 
 		{
-			$sticker = array(
- 				'type' => 'sticker',
- 				'packageId' => '4',
- 				'stickerId' => '300'
- 					);
-			$packet = array(
- 				'replyToken' => $replyToken,
- 				'messages' => array($sticker),
- 					);
+			$text = "sticker";
+			$replyToken = $event['replyToken'];
+			$messages = [
+				'type' => 'text',
+				'text' => $text
+			];
 			$url = 'https://api.line.me/v2/bot/message/reply';
-			$data = array(
+			$data = [
 				'replyToken' => $replyToken,
-				'messages' => array($sticker),
+				'messages' => [$messages],
 				
-			);
+			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 			$ch = curl_init($url);
