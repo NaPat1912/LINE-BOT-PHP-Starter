@@ -76,13 +76,13 @@ if (!is_null($events['events'])) {
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
 			// Get text sent
-			$text = "images";
+			$images = $event['message']['type'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
 			$messages = [
-				'type' => 'text',
-				'text' => $text
+				'type' => 'images',
+				'images' => $images
 			];
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
