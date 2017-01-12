@@ -45,7 +45,7 @@ if (!is_null($events['events'])) {
 		}
 		else if ($event['message']['text'] == "เก็บรูป") {
 			// Get text sent
-			$text = "กรุณาเลือกโฟลเดอร์";
+			$text = "มาเริ่มกันเลย";
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
@@ -75,22 +75,22 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			$url = 'http://example.com/image.php';
+			$urlpic = 'http://example.com/image.php';
 			$file = date("Y/m/d - h:i:sa");
-			$img = '/my/folder/$file.jpg';
+			//$img = '/my/folder/$file.jpg';
 			file_put_contents($img, file_get_contents($url));
 			
 			// Get text sent
-			$images = "$img";
+			$images = "$file";
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
 			$messages = [
-				'type' => 'images',
-				'images' => $images
+				'type' => 'text',
+				'text' => $file
 			];
 			// Make a POST Request to Messaging API to reply to sender
-			//$url = 'https://api.line.me/v2/bot/message/{messageId}/content';
+			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
 				'messages' => [$messages],
@@ -98,12 +98,12 @@ if (!is_null($events['events'])) {
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			$ch = curl_init('http://example.com/image.php');
-			//$ch = curl_init($url);
+			$chpic = curl_init('http://example.com/image.php');
+			$ch = curl_init($url);
 			$fp = fopen('/my/folder/$file.jpg', 'wb');
-			curl_setopt($ch, CURLOPT_FILE, $fp);
-			curl_setopt($ch, CURLOPT_HEADER, 0);
-			curl_exec($ch);
+			curl_setopt($chpic, CURLOPT_FILE, $fp);
+			curl_setopt($chpic, CURLOPT_HEADER, 0);
+			curl_exec($chpic);
 			fclose($fp);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
