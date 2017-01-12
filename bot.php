@@ -76,7 +76,7 @@ if (!is_null($events['events'])) {
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
 			// Get text sent
-			$images = $event['message']['type'];
+			$images = $event['message']['image'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
