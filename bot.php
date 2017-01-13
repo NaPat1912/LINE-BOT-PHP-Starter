@@ -75,20 +75,29 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			$urlpic = 'http://example.com/image.php';
+			/*$urlpic = 'http://example.com/image.php';
 			$file = date("Y/m/d - h:i:sa");
 			$img = '/my/folder/"$file".jpg';
 			file_put_contents($img, file_get_contents($url));
-			
+			*/
 			// Get text sent
-			$images = "$img";
+			"originalContentUrl": "https://example.com/original.jpg",
+    			"previewImageUrl": "https://example.com/original.jpg"
+			$images = $event['message']['image'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
 			$messages = [
-				'type' => 'text',
-				'text' => $img
+				'type' => 'image',
+				'image' => $images
 			];
+			/*$response = $bot->getMessageContent('uf6834da6efac06e194055a6348780f4f');
+				if ($response->isSucceeded()) {
+    			$tempfile = tmpfile();
+    			fwrite($tempfile, $response->getRawBody());
+				} else {
+    			error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
+					}*/
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
