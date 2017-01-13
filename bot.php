@@ -7,7 +7,6 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 // Validate parsed JSON data
-
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
@@ -75,24 +74,20 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			"originalContentUrl": "https://example.com/original.jpg",
-    			"previewImageUrl": "https://example.com/original.jpg"
+			$urlpic = 'http://example.com/image.php';
+			$file = date("Y/m/d - h:i:sa");
+			$img = '/my/folder/$file.jpg';
+			file_put_contents($img, file_get_contents($url));
+			
 			// Get text sent
-			$images = $event['message']['image'];
+			$images = "$img";
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
 			$messages = [
-				'type' => 'image',
-				'image' => $images
+				'type' => 'text',
+				'text' => $img
 			];
-			/*$response = $bot->getMessageContent('uf6834da6efac06e194055a6348780f4f');
-				if ($response->isSucceeded()) {
-    			$tempfile = tmpfile();
-    			fwrite($tempfile, $response->getRawBody());
-				} else {
-    			error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
-					}*/
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
@@ -102,9 +97,9 @@ if (!is_null($events['events'])) {
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			//$chpic = curl_init('http://example.com/image.php');
+			$chpic = curl_init('http://example.com/image.php');
 			$ch = curl_init($url);
-			//$fp = fopen('/my/folder/$file.jpg', 'wb');
+			$fp = fopen('/my/folder/$file.jpg', 'wb');
 			curl_setopt($chpic, CURLOPT_FILE, $fp);
 			curl_setopt($chpic, CURLOPT_HEADER, 0);
 			curl_exec($chpic);
