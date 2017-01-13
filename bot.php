@@ -75,14 +75,9 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			/*$urlpic = 'http://example.com/image.php';
-			$file = date("Y/m/d - h:i:sa");
-			$img = '/my/folder/"$file".jpg';
-			file_put_contents($img, file_get_contents($url));
-			*/
-			// Get text sent
 			"originalContentUrl": "https://example.com/original.jpg",
     			"previewImageUrl": "https://example.com/original.jpg"
+			// Get text sent
 			$images = $event['message']['image'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
@@ -107,9 +102,9 @@ if (!is_null($events['events'])) {
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			$chpic = curl_init('http://example.com/image.php');
+			//$chpic = curl_init('http://example.com/image.php');
 			$ch = curl_init($url);
-			$fp = fopen('/my/folder/$file.jpg', 'wb');
+			//$fp = fopen('/my/folder/$file.jpg', 'wb');
 			curl_setopt($chpic, CURLOPT_FILE, $fp);
 			curl_setopt($chpic, CURLOPT_HEADER, 0);
 			curl_exec($chpic);
