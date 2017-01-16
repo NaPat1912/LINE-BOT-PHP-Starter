@@ -73,12 +73,16 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			// Get text sent
+			"type": "image",
+			"originalContentUrl": "https://example.com/original.jpg",
+			"previewImageUrl": "https://example.com/preview.jpg"
+		}
+			/* Get text sent
 			$image = $event['message']['image'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
-			{"type": "image","originalContentUrl": "https://example.com/original.jpg","previewImageUrl": "https://example.com/preview.jpg"}
+			
 			$messages = [
 				'type' => 'image',
 				'image' => $image
@@ -109,7 +113,7 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 			;echo $result . "\r\n";
-		}
+		}*/
 		else if($event['message']['type'] == 'sticker') 
 		{
 			$text = "sticker";
