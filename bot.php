@@ -79,8 +79,8 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
-			"originalContentUrl": "https://example.com/original.jpg",
-    			"previewImageUrl": "https://example.com/preview.jpg"
+			/*"originalContentUrl": "https://example.com/original.jpg",
+    			"previewImageUrl": "https://example.com/preview.jpg"*/
 			
 			$messages = [
 				'type' => 'image',
