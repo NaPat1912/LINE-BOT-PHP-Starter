@@ -79,10 +79,14 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
+			"originalContentUrl": "https://example.com/original.jpg",
+    			"previewImageUrl": "https://example.com/preview.jpg"
+			
 			$messages = [
 				'type' => 'image',
 				'image' => $image
-			];
+				];
+			}
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
