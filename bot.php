@@ -73,11 +73,7 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			"type": "image",
-			"originalContentUrl": "https://example.com/original.jpg",
-			"previewImageUrl": "https://example.com/preview.jpg"
-		}
-			/* Get text sent
+			// Get text sent
 			$image = $event['message']['image'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
@@ -86,23 +82,16 @@ if (!is_null($events['events'])) {
 			$messages = [
 				'type' => 'image',
 				'image' => $image
-				];*/
+				];
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
 				'messages' => [$messages],
-				
-			];
+				];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			$chpic = curl_init('http://example.com/image.php');
 			$ch = curl_init($url);
-			$fp = fopen('/my/folder/$file.jpg', 'wb');
-			curl_setopt($chpic, CURLOPT_FILE, $fp);
-			curl_setopt($chpic, CURLOPT_HEADER, 0);
-			curl_exec($chpic);
-			fclose($fp);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
