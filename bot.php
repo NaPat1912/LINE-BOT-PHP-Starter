@@ -75,24 +75,14 @@ $events = json_decode($content, true);
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			$mock = function ($testRunner, $httpMethod, $url, $data) {
-            		/** @var \PHPUnit_Framework_TestCase $testRunner */
-            		$testRunner->assertEquals('POST', $httpMethod);
-            		$testRunner->assertEquals('https://api.line.me/v2/bot/message/reply', $url);
-            		$testRunner->assertEquals('REPLY-TOKEN', $data['replyToken']);
-            		$testRunner->assertEquals(1, count($data['messages']));
-            		$testRunner->assertEquals(MessageType::IMAGE, $data['messages'][0]['type']);
-            		$testRunner->assertEquals('https://example.com/image.jpg', $data['messages'][0]['originalContentUrl']);
-            		$testRunner->assertEquals('https://example.com/image_preview.jpg', $data['messages'][0]['previewImageUrl']);
-            		return ['status' => 200];
-        		};
-        		$bot = new LINEBot(new DummyHttpClient($this, $mock), ['channelSecret' => 'CHANNEL-SECRET']);
-       			$res = $bot->replyMessage('REPLY-TOKEN',
-            			new ImageMessageBuilder('https://example.com/image.jpg', 'https://example.com/image_preview.jpg'));
-       			$this->assertEquals(200, $res->getHTTPStatus());
-        		$this->assertTrue($res->isSucceeded());
-        		$this->assertEquals(200, $res->getJSONDecodedBody()['status']);
-    			}
+			$event = $events[1];
+            		$this->assertTrue($event->isUserEvent());
+            		$this->assertEquals('groupid', $event->getUserId());
+            		$this->assertEquals('groupid', $event->getEventSourceId());
+            		$this->assertInstanceOf('LINE\LINEBot\Event\MessageEvent\ImageMessage', $event);
+            		/** @var ImageMessage $event */
+            		$this->assertEquals('replytoken', $event->getReplyToken());
+            		$this->assertEquals('image', $event->getMessageType());
 			;echo $result . "\r\n";
 		}
 		else if($event['message']['type'] == 'sticker') 
