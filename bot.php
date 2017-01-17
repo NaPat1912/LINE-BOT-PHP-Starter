@@ -74,7 +74,7 @@ if (!is_null($events['events'])) {
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
 			// Get text sent
-			$image = $event['message']['image'];
+			$image = 'https://aisapi.herokuapp.com/3596_609896922354725_854539784_n.jpg';
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Build message to reply back
