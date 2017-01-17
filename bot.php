@@ -7,7 +7,9 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 // Validate parsed JSON data
-if (!is_null($events['events'])) {
+"events":["type":"message","timestamp":12345678901234,"source":{"type":"user","groupId":"userid"},
+   "replyToken":"replytoken","message":{"id":"contentid","type":"image"}
+  if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
@@ -73,35 +75,24 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			// Get text sent
-			$image = ["originalContentUrl": "https://example.com/original.jpg",
-    			"previewImageUrl": "https://example.com/preview.jpg"];
-			// Get replyToken
-			$replyToken = $event['replyToken'];
-			// Build message to reply back
-			
-			$messages = [
-				'type' => 'image',
-				'image' => $image
-				];
-			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/reply';
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages],
-				];
-			$post = json_encode($data);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			curl_setopt($ch, CURLOPT_PROXY, $proxy);
-			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
-			$result = curl_exec($ch);
-			curl_close($ch);
+			$mock = function ($testRunner, $httpMethod, $url, $data) {
+            		/** @var \PHPUnit_Framework_TestCase $testRunner */
+            		$testRunner->assertEquals('POST', $httpMethod);
+            		$testRunner->assertEquals('https://api.line.me/v2/bot/message/reply', $url);
+            		$testRunner->assertEquals('REPLY-TOKEN', $data['replyToken']);
+            		$testRunner->assertEquals(1, count($data['messages']));
+            		$testRunner->assertEquals(MessageType::IMAGE, $data['messages'][0]['type']);
+            		$testRunner->assertEquals('https://example.com/image.jpg', $data['messages'][0]['originalContentUrl']);
+            		$testRunner->assertEquals('https://example.com/image_preview.jpg', $data['messages'][0]['previewImageUrl']);
+            		return ['status' => 200];
+        		};
+        		$bot = new LINEBot(new DummyHttpClient($this, $mock), ['channelSecret' => 'CHANNEL-SECRET']);
+       			$res = $bot->replyMessage('REPLY-TOKEN',
+            			new ImageMessageBuilder('https://example.com/image.jpg', 'https://example.com/image_preview.jpg'));
+       			$this->assertEquals(200, $res->getHTTPStatus());
+        		$this->assertTrue($res->isSucceeded());
+        		$this->assertEquals(200, $res->getJSONDecodedBody()['status']);
+    			}
 			;echo $result . "\r\n";
 		}
 		else if($event['message']['type'] == 'sticker') 
