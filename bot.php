@@ -73,20 +73,15 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			// initialise variables here
-    			$chat_id = 1492138532;
-    			// path to the picture, 
-    			$photo = 'https://aisapi.herokuapp.com/P4160012.JPG';
-    			$caption = 'caption goes here';
-    			// Get replyToken
+			// path to the picture, 
+    			$photo = 'https://aisapi.herokuapp.com/P4160012/original.JPG','https://aisapi.herokuapp.com/P4160012/preview.JPG';
+      			// Get replyToken
 			$replyToken = $event['replyToken'];
     			
    			 	$data = array(
-        			'chat_id' => urlencode($chat_id),
          			// make sure you do NOT forget @ sign
         			'photo' => '@'.$photo,
-        			'caption' => urlencode($caption),
-        			'replyToken' => $replyToken,
+              			'replyToken' => $replyToken,
     					);
 
     			$url = 'https://api.line.me/v2/bot/message/reply';
