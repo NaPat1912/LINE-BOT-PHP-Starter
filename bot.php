@@ -75,7 +75,11 @@ if (!is_null($events['events'])) {
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
 			// path to the picture, 
     			$photo = 'https://aisapi.herokuapp.com/P4160012.JPG';
-      			// Get replyToken
+      			 $caption = 'caption goes here';
+    			// following ones are optional, so could be set as null
+    			$reply_to_message_id = null;
+    			$reply_markup = null;
+			// Get replyToken
 			$replyToken = $event['replyToken'];
     			
    			 	$data = array(
