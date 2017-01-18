@@ -77,8 +77,8 @@ if (!is_null($events['events'])) {
     			$photo = 'https://aisapi.herokuapp.com/P4160012.JPG';
       			 $caption = 'caption goes here';
     			// following ones are optional, so could be set as null
-    			$reply_to_message_id = null;
-    			$reply_markup = null;
+    			$reply_to_message_id = "https://example.com/original.jpg";
+    			$reply_markup = "https://example.com/preview.jpg";
 			// Get replyToken
 			$replyToken = $event['replyToken'];
     			
@@ -87,8 +87,8 @@ if (!is_null($events['events'])) {
          			// make sure you do NOT forget @ sign
         			'photo' => '@'.$photo,
         			'caption' => urlencode($caption),
-        			'reply_to_message_id' => urlencode("https://example.com/original.jpg",$reply_to_message_id),
-        			'reply_markup' => urlencode("https://example.com/preview.jpg",$reply_markup)
+        			'reply_to_message_id' => urlencode($reply_to_message_id),
+        			'reply_markup' => urlencode($reply_markup)
     					);
 
     			$url = 'https://api.line.me/v2/bot/message/reply';
