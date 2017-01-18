@@ -39,7 +39,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 			$result = curl_exec($ch);
 			curl_close($ch);
-			//;echo $result . "\r\n";
+			;echo $result . "\r\n";
 		}
 		else if ($event['message']['text'] == "เก็บรูป") {
 			// Get text sent
@@ -70,7 +70,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 			$result = curl_exec($ch);
 			curl_close($ch);
-			//;echo $result . "\r\n";
+			;echo $result . "\r\n";
 		}
 		else if ($event['message']['type'] == 'image') {
 			// path to the picture, 
@@ -83,9 +83,12 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
     			
    			 	$data = array(
+         			'chat_id' => urlencode($chat_id),
          			// make sure you do NOT forget @ sign
         			'photo' => '@'.$photo,
-              			'replyToken' => $replyToken,
+        			'caption' => urlencode($caption),
+        			'reply_to_message_id' => urlencode("https://example.com/original.jpg",$reply_to_message_id),
+        			'reply_markup' => urlencode("https://example.com/preview.jpg",$reply_markup)
     					);
 
     			$url = 'https://api.line.me/v2/bot/message/reply';
@@ -98,11 +101,11 @@ if (!is_null($events['events'])) {
     			//  number of POST vars
     			curl_setopt($ch, CURLOPT_POST, count($fields));
     			//  POST data
-    			curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+    			//curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
     			//  To display result of curl
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			//curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
