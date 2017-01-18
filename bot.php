@@ -74,7 +74,7 @@ if (!is_null($events['events'])) {
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
 			// path to the picture, 
-    			$photo = 'https://aisapi.herokuapp.com/P4160012/original.JPG','https://aisapi.herokuapp.com/P4160012/preview.JPG';
+    			$photo = 'https://aisapi.herokuapp.com/P4160012.JPG';
       			// Get replyToken
 			$replyToken = $event['replyToken'];
     			
