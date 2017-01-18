@@ -73,34 +73,41 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
-			// Get text sent
-			$image = $event['message']['image'];
-			// Get replyToken
-			$replyToken = $event['replyToken'];
-			// Build message to reply back
-			
-			$messages = [
-				'type' => 'image',
-				'image' => $image
-				];
-			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/reply';
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages],
-				];
-			$post = json_encode($data);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			// initialise variables here
+    			$chat_id = 1492138532;
+    			// path to the picture, 
+    			$photo = 'https://aisapi.herokuapp.com/P4160012.JPG';
+    			$caption = 'caption goes here';
+    			// following ones are optional, so could be set as null
+    			$reply_to_message_id = null;
+    			$reply_markup = null;
+
+   			 	$data = array(
+        			'chat_id' => urlencode($chat_id),
+         			// make sure you do NOT forget @ sign
+        			'photo' => '@'.$photo,
+        			'caption' => urlencode($caption),
+        			'reply_to_message_id' => urlencode($reply_to_message_id),
+        			'reply_markup' => urlencode($reply_markup)
+    					);
+
+    			$url = 'https://api.line.me/v2/bot/message/reply';
+    			//  open connection
+    			$ch = curl_init();
+    			//  set the url
+    			curl_setopt($ch, CURLOPT_URL, $url);
+    			//  number of POST vars
+    			curl_setopt($ch, CURLOPT_POST, count($fields));
+    			//  POST data
+    			curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+    			//  To display result of curl
+    			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_PROXY, $proxy);
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
-			$result = curl_exec($ch);
-			curl_close($ch);
+    			//  execute post
+    			$result = curl_exec($ch);
+    			//  close connection
+    			curl_close($ch);
 			;echo $result . "\r\n";
 		}
 		else if($event['message']['type'] == 'sticker') 
