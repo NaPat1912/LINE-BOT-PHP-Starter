@@ -39,7 +39,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 			$result = curl_exec($ch);
 			curl_close($ch);
-			;echo $result . "\r\n";
+			//;echo $result . "\r\n";
 		}
 		else if ($event['message']['text'] == "เก็บรูป") {
 			// Get text sent
@@ -70,9 +70,9 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 			$result = curl_exec($ch);
 			curl_close($ch);
-			;echo $result . "\r\n";
+			//;echo $result . "\r\n";
 		}
-		else if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
+		else if ($event['message']['type'] == 'image') {
 			// path to the picture, 
     			$photo = 'https://aisapi.herokuapp.com/P4160012.JPG';
       			 $caption = 'caption goes here';
