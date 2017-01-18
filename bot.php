@@ -79,8 +79,8 @@ if (!is_null($events['events'])) {
     			$photo = 'https://aisapi.herokuapp.com/P4160012.JPG';
     			$caption = 'caption goes here';
     			// following ones are optional, so could be set as null
-    			$reply_to_message_id = null;
-    			$reply_markup = null;
+    			$reply_to_message_id = !is_null;
+    			$reply_markup = !is_null;
 
    			 	$data = array(
         			'chat_id' => urlencode($chat_id),
@@ -92,6 +92,8 @@ if (!is_null($events['events'])) {
     					);
 
     			$url = 'https://api.line.me/v2/bot/message/reply';
+			$post = json_encode($data);
+			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
     			//  open connection
     			$ch = curl_init();
     			//  set the url
@@ -101,6 +103,11 @@ if (!is_null($events['events'])) {
     			//  POST data
     			curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
     			//  To display result of curl
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			//curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_PROXY, $proxy);
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
