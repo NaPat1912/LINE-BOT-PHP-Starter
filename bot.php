@@ -78,17 +78,15 @@ if (!is_null($events['events'])) {
     			// path to the picture, 
     			$photo = 'https://aisapi.herokuapp.com/P4160012.JPG';
     			$caption = 'caption goes here';
-    			// following ones are optional, so could be set as null
-    			$reply_to_message_id = !is_null;
-    			$reply_markup = !is_null;
-
+    			// Get replyToken
+			$replyToken = $event['replyToken'];
+    			
    			 	$data = array(
         			'chat_id' => urlencode($chat_id),
          			// make sure you do NOT forget @ sign
         			'photo' => '@'.$photo,
         			'caption' => urlencode($caption),
-        			'reply_to_message_id' => urlencode($reply_to_message_id),
-        			'reply_markup' => urlencode($reply_markup)
+        			'replyToken' => $replyToken,
     					);
 
     			$url = 'https://api.line.me/v2/bot/message/reply';
