@@ -73,48 +73,31 @@ if (!is_null($events['events'])) {
 			;echo $result . "\r\n";
 		}
 		else if ($event['message']['type'] == 'image') {
-			// path to the picture, 
-    			$photo = 'https://aisapi.herokuapp.com/P4160012.JPG';
-      			 $caption = 'caption goes here';
-    			// following ones are optional, so could be set as null
-    			$reply_to_message_id = "https://example.com/original.jpg";
-    			$reply_markup = "https://example.com/preview.jpg";
+			// Get text sent
+			$text = array(
+				"type"=>"image",
+    				"originalContentUrl"=>"https://example.com/original.jpg",
+    				"previewImageUrl"=>"https://example.com/preview.jpg");
 			// Get replyToken
 			$replyToken = $event['replyToken'];
-    			
-   			 	$data = array(
-         			'chat_id' => urlencode($chat_id),
-         			// make sure you do NOT forget @ sign
-        			'photo' => '@'.$photo,
-        			'caption' => urlencode($caption),
-        			'reply_to_message_id' => urlencode($reply_to_message_id),
-        			'reply_markup' => urlencode($reply_markup)
-    					);
-
-    			$url = 'https://api.line.me/v2/bot/message/reply';
-			$post = json_encode($data);
+			// Make a POST Request to Messaging API to reply to sender
+			$url = 'https://api.line.me/v2/bot/message/reply';
+			$data = [
+				'replyToken' => $replyToken,
+				'messages' => [$text],
+				];
+    			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-    			//  open connection
-    			$ch = curl_init();
-    			//  set the url
-    			curl_setopt($ch, CURLOPT_URL, $url);
-    			//  number of POST vars
-    			curl_setopt($ch, CURLOPT_POST, count($fields));
-    			//  POST data
-    			//curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-    			//  To display result of curl
+			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_PROXY, $proxy);
 			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
-    			//  execute post
-    			$result = curl_exec($ch);
-    			//  close connection
-    			curl_close($ch);
+			$result = curl_exec($ch);
+			curl_close($ch);
 			;echo $result . "\r\n";
 		}
 		else if($event['message']['type'] == 'sticker') 
@@ -125,16 +108,11 @@ if (!is_null($events['events'])) {
  			'stickerId' => '300'
  				);
 			$replyToken = $event['replyToken'];
-			/*$messages = [
-				'type' => 'text',
-				'text' => $text
-				];*/
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
 				'messages' => [$text],
-				
-			];
+				];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 			$ch = curl_init($url);
