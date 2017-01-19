@@ -76,8 +76,8 @@ if (!is_null($events['events'])) {
 			// Get text sent
 			$text = array(
 				"type"=>"image",
-    				"originalContentUrl"=>"https://example.com/original.jpg",
-    				"previewImageUrl"=>"https://example.com/preview.jpg");
+    				"originalContentUrl"=>"https://aisapi.herokuapp.com/P4160012/original.jpg",
+    				"previewImageUrl"=>"https://aisapi.herokuapp.com/P4160012/preview.jpg");
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Make a POST Request to Messaging API to reply to sender
