@@ -119,16 +119,16 @@ if (!is_null($events['events'])) {
 		}
 		else if($event['message']['type'] == 'sticker') 
 		{
-			$text = "sticker";
+			$sticker = array['type' => 'sticker','packageId' => '4','stickerId' => '300'];
 			$replyToken = $event['replyToken'];
 			$messages = [
-				'type' => 'text',
-				'text' => $text
+				'type' => 'sticker',
+				'sticker' => $sticker
 			];
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages],
+				'messages' => array[$messages],
 				
 			];
 			$post = json_encode($data);
