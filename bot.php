@@ -119,7 +119,10 @@ if (!is_null($events['events'])) {
 		}
 		else if($event['message']['type'] == 'sticker') 
 		{
-			$sticker = $event['type'=>'sticker']['packageId'=>'4']['stickerId'=>'293'];
+			$sticker = $event[
+				'type'=>'sticker',
+				'packageId'=>'4',
+				'stickerId'=>'293'];
 			$replyToken = $event['replyToken'];
 			$messages = [
 				'type' => 'sticker',
