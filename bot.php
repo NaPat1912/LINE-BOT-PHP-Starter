@@ -122,8 +122,8 @@ if (!is_null($events['events'])) {
 			$sticker = $event['message']['sticker'];
 			$replyToken = $event['replyToken'];
 			$messages = [
-				'type' => 'sticker',
-				'sticker' => $sticker
+				'type' => 'text',
+				'text' => $sticker
 				];
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
