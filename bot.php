@@ -8,6 +8,13 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 // Validate parsed JSON data
 
+use LINE\LINEBot;
+use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use \LINE\LINEBot\Event\MessageEvent\getMessageContent;
+use \LINE\LINEBot\Event\MessageEvent\getHTTPStatus;
+use \LINE\LINEBot\Event\MessageEvent\getRawBody;
+use \LINE\LINEBot\Event\isSucceeded;
+
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
@@ -76,7 +83,7 @@ if (!is_null($events['events'])) {
 		else if ($event['message']['type'] == 'image') {
 			$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('P16B/i7iP6NyxMmL2cDfXPeOy0n0V3KrqBXcs1cVSpQ+IZVCs8aajyDbB/JlctMyACPrQ+T30KvpfDdYQNs+SQYxDb1ew5Hg1i8eERvgWBJVM8vPqlPrUpqkVB366JNWUp+lHe4Mqu0qvAynWAR/aQdB04t89/1O/w1cDnyilFU=');
 			$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'e6cd474bb7bb5368e1bc3ea48e92521c']);
-			$response = $bot->$Content('uf6834da6efac06e194055a6348780f4f');
+			$response = $bot->getMessageContent('uf6834da6efac06e194055a6348780f4f');
 			if ($response->isSucceeded()) {
     				$tempfile = 'https://aisapi.herokuapp.com';
     				fwrite($tempfile, $response->getRawBody());
