@@ -72,12 +72,12 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			;echo $result . "\r\n";
 		}
-		else if ($event['message']['type'] == 'image') {
+		else if ($event['message']['text'] == "ขอดูรูปหน่อย") {
 			// Get text sent
 			$text = array(
 				"type"=>"image",
-    				"originalContentUrl"=>"https://example.com/image.jpg",
-    				"previewImageUrl"=>"https://example.com/image_preview.jpg");
+    				"originalContentUrl"=>"https://aisapi.herokuapp.com/P4160012.JPG",
+    				"previewImageUrl"=>"https://aisapi.herokuapp.com/P4160012_preview.JPG");
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			// Make a POST Request to Messaging API to reply to sender
