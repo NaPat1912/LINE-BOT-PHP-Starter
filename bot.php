@@ -9,11 +9,7 @@ $events = json_decode($content, true);
 // Validate parsed JSON data
 
 use LINE\LINEBot;
-use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
-use \LINE\LINEBot\Event\MessageEvent\getMessageContent;
-use \LINE\LINEBot\Event\MessageEvent\getHTTPStatus;
-use \LINE\LINEBot\Event\MessageEvent\getRawBody;
-use \LINE\LINEBot\Event\isSucceeded;
+use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -85,7 +81,8 @@ if (!is_null($events['events'])) {
 			$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'e6cd474bb7bb5368e1bc3ea48e92521c']);
 			$response = $bot->getMessageContent('uf6834da6efac06e194055a6348780f4f');
 			if ($response->isSucceeded()) {
-    				$tempfile = 'https://aisapi.herokuapp.com';
+				$d = date("Y-m-d h:i:sa");
+    				$tempfile = 'https://aisapi.herokuapp.com/ $d.jpg';
     				fwrite($tempfile, $response->getRawBody());
 				} else {
     				error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
