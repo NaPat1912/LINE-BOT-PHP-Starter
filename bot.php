@@ -7,6 +7,7 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 // Validate parsed JSON data
+
 if (!is_null($events['events'])) {
 	// Loop through each event
 	foreach ($events['events'] as $event) {
@@ -53,6 +54,43 @@ if (!is_null($events['events'])) {
 			];
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
+			$data = [
+				'replyToken' => $replyToken,
+				'messages' => [$messages],
+				
+			];
+			$post = json_encode($data);
+			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($ch, CURLOPT_PROXY, $proxy);
+			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+			$result = curl_exec($ch);
+			curl_close($ch);
+			;echo $result . "\r\n";
+		}
+		else if ($event['message']['type'] == 'image') {
+			$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('<channel access token>');
+			$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '<channel secret>']);
+			$response = $bot->$Content('uf6834da6efac06e194055a6348780f4f');
+			if ($response->isSucceeded()) {
+    				$tempfile = 'https://aisapi.herokuapp.com';
+    				fwrite($tempfile, $response->getRawBody());
+				} else {
+    				error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
+			}
+			$text = array(
+				"type"=>"image",
+    				"originalContentUrl"=>"https://aisapi.herokuapp.com.JPG",
+    				"previewImageUrl"=>"https://aisapi.herokuapp.com.JPG");
+			// Get replyToken
+			$replyToken = $event['replyToken'];
+			// Make a POST Request to Messaging API to reply to sender
+			$url = 'https://api.line.me/v2/bot/message/uf6834da6efac06e194055a6348780f4f/content';
 			$data = [
 				'replyToken' => $replyToken,
 				'messages' => [$messages],
