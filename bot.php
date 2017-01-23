@@ -88,7 +88,7 @@ if (!is_null($events['events'])) {
 				}
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/uf6834da6efac06e194055a6348780f4f/content';
-			$post = json_encode($response);
+			$post = json_encode($tempfile);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
