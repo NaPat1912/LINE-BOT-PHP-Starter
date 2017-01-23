@@ -80,7 +80,7 @@ if (!is_null($events['events'])) {
 		else if ($event['message']['type'] == 'image') {
 			$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('P16B/i7iP6NyxMmL2cDfXPeOy0n0V3KrqBXcs1cVSpQ+IZVCs8aajyDbB/JlctMyACPrQ+T30KvpfDdYQNs+SQYxDb1ew5Hg1i8eERvgWBJVM8vPqlPrUpqkVB366JNWUp+lHe4Mqu0qvAynWAR/aQdB04t89/1O/w1cDnyilFU=');
 			$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'e6cd474bb7bb5368e1bc3ea48e92521c']);
-			$response = $bot->$content('$messageId');
+			$response = $bot->getMessageContent('$messageId');
 				if ($response->isSucceeded()) {
    				$tempfile = tmpfile();
     				fwrite($tempfile, $response->getRawBody());
@@ -88,10 +88,10 @@ if (!is_null($events['events'])) {
     				error_log(echo "ERROR");
 				}
 			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/{messageId}/content';
+			$get = 'https://api.line.me/v2/bot/message/[$messageId]/content';
 			$post = json_encode($tempfile);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			$ch = curl_init($url);
+			$ch = curl_init($get);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
