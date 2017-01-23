@@ -76,7 +76,7 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			;echo $result . "\r\n";
 		}
-		else if ($event['message']['type'] == 'image') {
+		/*else if ($event['message']['type'] == 'image') {
 			$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('P16B/i7iP6NyxMmL2cDfXPeOy0n0V3KrqBXcs1cVSpQ+IZVCs8aajyDbB/JlctMyACPrQ+T30KvpfDdYQNs+SQYxDb1ew5Hg1i8eERvgWBJVM8vPqlPrUpqkVB366JNWUp+lHe4Mqu0qvAynWAR/aQdB04t89/1O/w1cDnyilFU=');
 			$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => 'e6cd474bb7bb5368e1bc3ea48e92521c']);
 			$response = $bot->getMessageContent('uf6834da6efac06e194055a6348780f4f');
@@ -101,7 +101,7 @@ if (!is_null($events['events'])) {
 			$result = curl_exec($ch);
 			curl_close($ch);
 			;echo $result . "\r\n";
-		}
+		}*/
 		else if ($event['message']['text'] == "ขอดูรูปหน่อย") {
 			// Get text sent
 			$text = array(
