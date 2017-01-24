@@ -74,11 +74,11 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			;echo $result . "\r\n";
 		}
-		/*else if ($event['message']['type'] == 'image') {
+		else if ($event['message']['type'] == 'image') {
 			$response = ['message']['image'];
 			   if ($response == isSucceeded()) {
    				$tempfile = tmpfile();
-    				fwrite($tempfile, $response->getRawBody());
+    				fwrite($tempfile, $response);
 				$get = 'https://api.line.me/v2/bot/message/uf6834da6efac06e194055a6348780f4f/content';
 				$post = json_encode($tempfile);
 				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
@@ -92,8 +92,7 @@ if (!is_null($events['events'])) {
 				curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 				$result = curl_exec($ch);
 				curl_close($ch);
-				;echo $result . "\r\n";
-				$text = ['type' => 'text',
+					$text = ['type' => 'text',
 				'text' => "Succeeded"];
 				$url = 'https://api.line.me/v2/bot/message/reply';
 				$data = [
@@ -111,14 +110,14 @@ if (!is_null($events['events'])) {
 				curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 				$result = curl_exec($ch);
 				curl_close($ch);
+				;echo $result . "\r\n";
 				} 
 			   else {
     				$text = ['type' => 'text',
 				'text' => "ERROR"];
-				$url = 'https://api.line.me/v2/bot/message/reply';
-				$data = [
-				'replyToken' => $replyToken,
+				$data = ['replyToken' => $replyToken,
 				'messages' => [$text],];
+				$url = 'https://api.line.me/v2/bot/message/reply';
 				$post = json_encode($data);
 				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 				$ch = curl_init($url);
