@@ -74,30 +74,66 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			;echo $result . "\r\n";
 		}
-		/*else if ($event['message']['type'] == 'image') {
+		else if ($event['message']['type'] == 'image') {
 			$response = ['message']['image'];
-				if ($response == isSucceeded()) {
+			   if ($response == isSucceeded()) {
    				$tempfile = tmpfile();
     				fwrite($tempfile, $response->getRawBody());
-				} else {
-    				error_log(echo "ERROR");
+				$get = 'https://api.line.me/v2/bot/message/uf6834da6efac06e194055a6348780f4f/content';
+				$post = json_encode($tempfile);
+				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+				$ch = curl_init($get);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				curl_setopt($ch, CURLOPT_PROXY, $proxy);
+				curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+				$result = curl_exec($ch);
+				curl_close($ch);
+				;echo $result . "\r\n";
+				$text = ['type' => 'text',
+				'text' => "Succeeded"];
+				$url = 'https://api.line.me/v2/bot/message/reply';
+				$data = [
+				'replyToken' => $replyToken,
+				'messages' => [$text],];
+				$post = json_encode($data);
+				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1)
+				curl_setopt($ch, CURLOPT_PROXY, $proxy);
+				curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+				$result = curl_exec($ch);
+				curl_close($ch);
+				} 
+			   else {
+    				$text = ['type' => 'text',
+				'text' => "ERROR"];
+				$url = 'https://api.line.me/v2/bot/message/reply';
+				$data = [
+				'replyToken' => $replyToken,
+				'messages' => [$text],];
+				$post = json_encode($data);
+				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1)
+				curl_setopt($ch, CURLOPT_PROXY, $proxy);
+				curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+				$result = curl_exec($ch);
+				curl_close($ch);
+				;echo $result . "\r\n";
 				}
-			// Make a POST Request to Messaging API to reply to sender
-			$get = 'https://api.line.me/v2/bot/message/[$messageId]/content';
-			$post = json_encode($tempfile);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-			$ch = curl_init($get);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			curl_setopt($ch, CURLOPT_PROXY, $proxy);
-			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
-			$result = curl_exec($ch);
-			curl_close($ch);
-			;echo $result . "\r\n";
-		}*/
+		}
 		else if ($event['message']['text'] == "ขอดูรูปหน่อย") {
 			// Get text sent
 			$text = array(
