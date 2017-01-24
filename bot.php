@@ -74,7 +74,7 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 			;echo $result . "\r\n";
 		}
-		else if ($event['message']['type'] == 'image') {
+		/*else if ($event['message']['type'] == 'image') {
 			$response = ['message']['image'];
 			   if ($response == isSucceeded()) {
    				$tempfile = tmpfile();
